@@ -87,4 +87,15 @@ export class ApiService {
             headers: { 'Authorization': `Bearer ${token}` }
         });
     }
+
+    /**
+     * DEEP MODEL - Detailed View
+     * GET /api/secure/employees/{id}
+     */
+    getSecureEmployeeDetails(id: number): Observable<{ data: { fullName: string, role: string, email: string }, authenticatedAs: string }> {
+        const token = localStorage.getItem('sessionToken') || '';
+        return this.http.get<{ data: { fullName: string, role: string, email: string }, authenticatedAs: string }>(`${this.baseUrl}/secure/employees/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+    }
 }

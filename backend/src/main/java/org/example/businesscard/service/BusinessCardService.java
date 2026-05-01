@@ -80,4 +80,11 @@ public class BusinessCardService {
             org.example.businesscard.domain.EmployeeSearchQuery query) {
         return employeeRepository.findByFullNameContainingIgnoreCase(query.getValue());
     }
+
+    public Employee getEmployeeById(
+            org.example.businesscard.domain.VerifiedAuthSession session, 
+            Long id) {
+        return employeeRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
+    }
 }

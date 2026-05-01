@@ -106,9 +106,50 @@ public class BusinessCardController {
 
             List<Employee> employees = businessCardService.getEmployees(session, query);
 
+            // Search endpoint only returns id and fullName for the dropdown
+            List<Map<String, Object>> safeEmployees = employees.stream()
+                .map(emp -> Map.<String, Object>of(
+                    "id", emp.getId(),
+                    "fullName", emp.getFullName()
+                ))
+                .toList();
+
             return ResponseEntity.ok(Map.of(
-                    "count", employees.size(),
-                    "data", employees,
+                    "count", safeEmployees.size(),
+                    "data", safeEmployees,
+                    "authenticatedAs", session.getUsername()
+            ));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (SecurityException e) {
+            return ResponseEntity.status(401).body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    /**
+     * DEEP MODEL - Detailed Business Card Fetch
+     * Requires Authorization header. Only exposes business card fields.
+     */
+    @GetMapping("/secure/employees/{id}")
+    public ResponseEntity<?> getSecureEmployeeDetails(
+            @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @PathVariable Long id) {
+
+        try {
+            org.example.businesscard.domain.VerifiedAuthSession session = 
+                org.example.businesscard.domain.VerifiedAuthSession.fromAuthorizationHeader(authHeader);
+
+            Employee emp = businessCardService.getEmployeeById(session, id);
+
+            // Only expose necessary business card details, stripping out manager and phoneNumber
+            Map<String, String> safeDetails = Map.of(
+                "fullName", emp.getFullName(),
+                "role", emp.getRole(),
+                "email", emp.getEmail()
+            );
+
+            return ResponseEntity.ok(Map.of(
+                    "data", safeDetails,
                     "authenticatedAs", session.getUsername()
             ));
         } catch (IllegalArgumentException e) {

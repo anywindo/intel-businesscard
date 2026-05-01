@@ -128,9 +128,13 @@ export class MainComponent implements OnInit {
                 // Populate the business card preview if exactly 1 result
                 if (response.data.length === 1) {
                     const emp = response.data[0];
-                    this.email = emp.email;
-                    this.fullName = emp.fullName;
-                    this.title = emp.role;
+                    this.apiService.getSecureEmployeeDetails(emp.id).subscribe({
+                        next: (detailResp) => {
+                            this.email = detailResp.data.email;
+                            this.fullName = detailResp.data.fullName;
+                            this.title = detailResp.data.role;
+                        }
+                    });
                 }
             },
             error: (err) => {
@@ -159,10 +163,14 @@ export class MainComponent implements OnInit {
 
     onSelectCustom(emp: Employee): void {
         this.searchQuery = emp.fullName;
-        this.email = emp.email;
-        this.fullName = emp.fullName;
-        this.title = emp.role;
         this.showDropdown = false;
+        this.apiService.getSecureEmployeeDetails(emp.id).subscribe({
+            next: (detailResp) => {
+                this.email = detailResp.data.email;
+                this.fullName = detailResp.data.fullName;
+                this.title = detailResp.data.role;
+            }
+        });
     }
 
     onLogout(): void {
