@@ -1,0 +1,90 @@
+<canvas id="bg-canvas" #bgCanvas></canvas>
+
+<!-- Top-left Intel branding -->
+<div class="top-header">
+  <img class="intel-logo"
+    src="https://b2928487.smushcdn.com/2928487/wp-content/uploads/2022/10/Intel-logo.png?lossy=1&strip=1&webp=1"
+    alt="Intel" />
+  <div class="brand-text">
+    <span class="brand-title">Intel Azure Portal</span>
+    <span class="brand-subtitle">
+      <img class="cloud-icon" src="https://www.svgrepo.com/show/452065/ms-onedrive.svg" alt="cloud" />
+      Cloud Services - Production
+    </span>
+  </div>
+</div>
+
+<!-- Centered login card stack -->
+<div class="login-wrapper">
+  <div class="main-container">
+
+    <div class="login-box">
+      <div class="login-content">
+
+        <div class="inner-logo">
+          <div class="inner-logo-title">Intel Azure Portal</div>
+          <div class="inner-logo-subtitle">
+            <img class="cloud-icon" src="https://www.svgrepo.com/show/452065/ms-onedrive.svg" alt="cloud" />
+            Cloud Services &mdash; <strong>Production</strong>
+          </div>
+        </div>
+
+        <h1>Sign in</h1>
+
+        <div class="input-group">
+          <input type="email" [(ngModel)]="email" placeholder="Email, username, or Skype"
+            aria-label="Enter your email address" />
+        </div>
+
+        <div class="input-group" style="margin-top: 10px;">
+          <input type="password" [(ngModel)]="password" placeholder="Password" aria-label="Enter your password" />
+        </div>
+
+
+
+        @if (errorMessage) {
+        <div class="error-msg"
+          style="color: #e81123; font-size: 13px; margin-top: 10px; line-height: 1.4; display: flex; align-items: center; gap: 6px;">
+          {{ errorMessage }}
+          <div class="tooltip-container">
+            <img class="info-icon-img"
+              src="https://www.mysafetysign.com/img/lg/I/tourist-information-symbol-iso-sign-is-1293.png" alt="info">
+            <div class="tooltip-text">
+              Log in with user@intel.com and "UserP@ss2024!"
+            </div>
+          </div>
+        </div>
+        }
+
+        <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;"
+          class="help-link">Can't access your account?</a>
+
+        <div class="button-group">
+          <button type="button" class="btn-next" (click)="onNext()">Sign in</button>
+        </div>
+      </div>
+
+      <div class="login-footer">
+        <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Sign-In
+          Help</a>
+      </div>
+    </div>
+
+    <div class="options-box">
+      <img class="options-icon"
+        src="https://aadcdn.msauth.net/shared/1.0/content/images/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6.svg"
+        alt="sign-in options" />
+      <span class="options-text">Sign-in options</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bottom right links -->
+<div class="bottom-links">
+  <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Terms of use</a>
+  <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Privacy &amp;
+    cookies</a>
+  <a href="javascript:void(0)" title="Unavailable and cant be clicked"
+    style="cursor: not-allowed;">&middot;&middot;&middot;</a>
+</div>

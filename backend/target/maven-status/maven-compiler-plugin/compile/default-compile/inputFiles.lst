@@ -1,0 +1,10 @@
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/BusinessCardApplication.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/config/SecurityConfig.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/controller/BusinessCardController.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/domain/EmployeeSearchQuery.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/domain/Role.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/domain/SecureUserSession.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/domain/VerifiedAuthSession.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/model/Employee.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/repository/EmployeeRepository.java
+/Users/arw/IdeaProjects/PA3/intel-businesscard/backend/src/main/java/org/example/businesscard/service/BusinessCardService.java

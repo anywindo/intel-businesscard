@@ -1,0 +1,148 @@
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-left">
+    <img class="intel-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Intel_logo_%282022%2C_white_blue%29.png/1280px-Intel_logo_%282022%2C_white_blue%29.png" alt="Intel" />
+    <div class="divider"></div>
+    <span class="app-name">India Business Card</span>
+  </div>
+  <div class="header-right">
+    <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;" class="active">Home</a>
+    <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">My Requests</a>
+    <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;" class="help-link">Help ▾</a>
+    <a (click)="onLogout()">Logout</a>
+    <div class="header-ops">
+      <span class="iio-letters">IIO</span>
+      <span class="iio-text">INTEL INDIA<br>OPERATIONS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<main>
+  <div class="top-filters">
+    <div class="input-group">
+      <label>Company*</label>
+      <select><option>Intel Technology India Pvt. Ltd.</option></select>
+    </div>
+    <div class="input-group">
+      <label>Site*</label>
+      <select><option>SRR1</option></select>
+    </div>
+    <div class="input-group">
+      <input type="text" placeholder="Purchase Order">
+    </div>
+    <div class="input-group search-group" style="position: relative;">
+      <div class="custom-search-wrap">
+        <input type="text" placeholder="Search your Name/WWID" class="custom-search-input" style="padding-right: 30px;"
+               [ngModel]="searchQuery" 
+               (ngModelChange)="onSearchInput($event)"
+               (focus)="showDropdown = true"
+               (blur)="onBlur()">
+        <span style="position: absolute; right: 12px; top: 12px; pointer-events: none; color: #888; font-size: 12px;">▼</span>
+        
+        @if (showDropdown && employees().length > 0) {
+          <ul class="custom-dropdown-list">
+            @for (emp of employees(); track emp.id) {
+              <li (mousedown)="onSelectCustom(emp)">{{ emp.fullName }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Results -->
+  <!-- @if (hasSearched()) {
+    <div class="results-section">
+      @if (resultCount() > 20) {
+        <div class="results-badge">⚠️ DATA OVER-FETCHING DETECTED — {{ resultCount() }} records returned</div>
+      }
+    </div>
+  } -->
+
+  <div class="instructions">
+    <span class="text-red">Note:</span>
+    <strong>Employees who have chosen offsite as option should mandatorily give the registered office address and not the residence address. CIN no. is mandatory for all business cards. Mail room will contact the individual and then will ship the business cards to the residence.</strong><br>
+    <strong>Purchase Order number is required for the physical card request. Display customization available for E-Card.</strong><br>
+    <span class="text-red">*Fill the mandatory fields.</span>
+  </div>
+
+  <div class="vendor-row">
+    <select><option>Select Vendor*</option></select>
+  </div>
+
+  <!-- ── CARD PREVIEW ── -->
+  <div class="card-preview-container">
+    <div class="card-top-row">
+      <div class="address-block">
+        <span class="company-name">Intel Technology India Pvt. Ltd.</span>
+        Regd Address: #23-56 P, Outer Ring Road,<br>
+        Devarabeesanahalli, Varthur Hobli,<br>
+        Bellandur post,<br>
+        Bengaluru 560103, Karnataka, India
+      </div>
+      <div class="intel-card-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Intel-logo-2022.png" alt="Intel" />
+      </div>
+    </div>
+
+    <div class="phone-grid">
+      <select><option>DialCd</option></select>
+      <input type="text">
+      <span class="phone-label">Cell*</span>
+    </div>
+    <div class="phone-grid">
+      <select><option>DialCd</option></select>
+      <input type="text">
+      <span class="phone-label">Direct</span>
+    </div>
+    <div class="phone-grid">
+      <select><option>DialCd</option></select>
+      <input type="text">
+      <span class="phone-label">Fax</span>
+    </div>
+
+    <div class="details-grid">
+      <input type="text" placeholder="Email*" [value]="email">
+      <input type="text" placeholder="Full Name*" [value]="fullName">
+      <input type="text" placeholder="LinkedIn" [value]="linkedIn">
+      <input type="text" placeholder="Title*" [value]="title">
+    </div>
+
+    <div class="cin-row">
+      <label>INTEL:</label>
+      <input type="text" value="CIN-U85110KA199PTC021606">
+      <input type="text" placeholder="Remarks : [ Qty: 100 * X ]">
+    </div>
+
+    <div class="website-text">www.intel.com</div>
+
+    <label class="official-check">
+      <input type="checkbox" checked>
+      <span>The information provided is correct and for official purpose.</span>
+    </label>
+  </div>
+
+  <!-- Consent -->
+  <div class="consent-section">
+    <input type="checkbox" id="privacyConsent" [(ngModel)]="consentChecked">
+    <label for="privacyConsent">
+      This personal data would be processed to create your business card, in accordance with
+      <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Global Employee and Contingent Worker Privacy Notices</a>.
+      This data would be shared with Intel approved Vendor, who would be printing business card on behalf of Intel.
+      Your personal data would be deleted by vendor and from Intel systems after the request for business card has been fulfilled.
+      By checking this box, you provide your consent to process your personal data for the said purpose by Intel and vendor.
+      For any questions, please contact <a href="mailto:write2cs@intel.com">write2cs&#64;intel.com</a>
+    </label>
+  </div>
+
+  <div class="submit-btn-container">
+    <button class="submit-btn" [class.active]="consentChecked" [disabled]="!consentChecked">SUBMIT</button>
+  </div>
+
+  <footer>
+    This website is maintained by Intel S2P BI RUN team.<br>
+    For any feedback on the website please contact: <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">S2P BI RUN</a><br>
+    Team Contact : <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">S2P BI RUN</a> | <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Trademark</a> | <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Privacy</a> | <a href="javascript:void(0)" title="Unavailable and cant be clicked" style="cursor: not-allowed;">Cookies</a>
+  </footer>
+</main>

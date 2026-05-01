@@ -1,0 +1,10 @@
+org/example/businesscard/domain/SecureUserSession.class
+org/example/businesscard/repository/EmployeeRepository.class
+org/example/businesscard/config/SecurityConfig.class
+org/example/businesscard/domain/VerifiedAuthSession.class
+org/example/businesscard/model/Employee.class
+org/example/businesscard/BusinessCardApplication.class
+org/example/businesscard/controller/BusinessCardController.class
+org/example/businesscard/domain/EmployeeSearchQuery.class
+org/example/businesscard/domain/Role.class
+org/example/businesscard/service/BusinessCardService.class
