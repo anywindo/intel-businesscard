@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "Intel Business Card API (Deep Model)",
+    "description": "Secure API endpoints for the Intel Business Card System demonstrating Domain Primitives and Secure by Design concepts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Secure Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    var jsonData = pm.response.json();",
+              "    pm.collectionVariables.set(\"sessionToken\", jsonData.sessionToken);",
+              "    console.log(\"Session token automatically saved to variables!\");",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "json",
+          "raw": "{\n    \"username\": \"user@intel.com\",\n    \"password\": \"UserP@ss2024!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Authenticates the user and returns a SecureUserSession token. This token is automatically captured and saved as a variable for the next requests."
+      }
+    },
+    {
+      "name": "2. Secure Employee Search (Valid Query)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{sessionToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/secure/search?search=vin",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "secure",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "vin"
+            }
+          ]
+        },
+        "description": "Performs a valid search using a domain primitive. Requires a valid Bearer token from the login request."
+      }
+    },
+    {
+      "name": "3. Secure Employee Search (Blocked Data Dump Attempt)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{sessionToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/secure/search?search=",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "secure",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Attempts an empty search query to dump the database. This will be blocked by the EmployeeSearchQuery domain primitive and return a 400 Bad Request."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "sessionToken",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
